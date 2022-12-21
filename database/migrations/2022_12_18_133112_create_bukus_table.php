@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('Publish');
             $table->integer('Stock');
             $table->string('Penulis');
+            $table->string('image');
             $table->timestamps();
         });
     }

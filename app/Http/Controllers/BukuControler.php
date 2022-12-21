@@ -37,13 +37,17 @@ class BukuControler extends Controller
      */
     public function store(Request $request)
     {
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $filename = $request->Judul.'_'.$request->Penulis.$extension;
+        $request->file('image')->storeAs('/public/book/',$filename);
         //
         Buku::create([
             //nama dari model =>
             'judul' =>$request ->Judul,
             'Stock'=>$request ->Stock,
             'Penulis'=>$request ->Penulis,
-            'Publish'=>$request ->Publish
+            'Publish'=>$request ->Publish,
+            'image'=>$filename
         ]);
 
     }
@@ -69,6 +73,8 @@ class BukuControler extends Controller
     public function edit($id)
     {
         //
+        $book = Buku::findOrfAIL($id);
+        return view('editBook',compact('book'));
     }
 
     /**
@@ -80,7 +86,19 @@ class BukuControler extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // $extension = $request->file('image')->getClientOriginalExtension();
+        // $filename = $request->Judul.'_'.$request->Penulis.$extension;
+        // $request->file('image')->storeAs('/public/book/',$filename);
+        dd($id);
+        Buku::findOrFail($id)->update([
+
+            'Judul' => $request -> Title,
+            'Publish' => $request -> Publish,
+            'Stock' => $request -> Stock,
+            'Penulis' => $request -> Title,
+            // 'image'=>$filename
+        ]);
+        return redirect('/home');
     }
 
     /**
@@ -89,8 +107,9 @@ class BukuControler extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        Buku::destroy($id);
+        return redirect('/home');
     }
 }

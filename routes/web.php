@@ -16,8 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
 //     return view('welcome');
-// });b
+// });
 Route::get('/home',[BukuControler::class,'index'])->name('index');
 Route::get('/create-book',[BukuControler::class,'create'])->name('create');
 Route::post('/store-book',[BukuControler::class,'store'])->name('store');
 Route::get('/show-book/{id}',[BukuControler::class,'show'])->name('show');
+Route::get('/edit-book/{id}',[BukuControler::class,'edit'])->name('edit');
+Route::patch('/update-book/{id}',[BukuControler::class,'update']);
+Route::delete('/delete-book/{id}',[BukuControler::class,'delete']);
+

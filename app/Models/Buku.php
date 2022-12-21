@@ -11,7 +11,8 @@ class Buku extends Model
         'judul',
         'Penulis',
         'Stock',
-        'Publish'
+        'Publish',
+        'image'
     ];
     use HasFactory;
 }
